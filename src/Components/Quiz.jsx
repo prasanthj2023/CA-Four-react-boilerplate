@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../CSS/Quiz.css";
 import questions from "./questions.js";
 import Result from "./Result.jsx";
 import { useNavigate } from "react-router-dom";
 
 import Logo from "../assets/logo-new.png";
+import LogoLight from "../assets/logo-white.png";
 import Github from "../assets/github.png";
+import GithubLight from "../assets/github-light.png";
 import LinkedIn from "../assets/linkedin.png";
+import LinkedInLight from "../assets/linkedin-light.png";
 import CodePen from "../assets/codepen.png";
+import CodePenLight from "../assets/codepen-light.png";
 import Light from "../assets/light.png";
+import Moon from "../assets/moon.png";
 
 function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [highlited, setHighlited] = useState(false);
+  const [dark, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true;
+  });
 
   const navigate = useNavigate();
 
@@ -57,21 +66,70 @@ function Quiz() {
   };
 
   const quitQuiz = () => {
-    navigate(-1)
-  }
+    navigate(-1);
+  };
+
+  const headerStyle = {
+    backgroundColor: dark ? "white" : "#191919",
+  };
+
+  const authorStyle = {
+    border: dark ? "2px solid black" : "2px solid white",
+  };
+
+  const textStyle = {
+    color: dark ? "black" : "black",
+  };
+
+  const textOtherStyle = {
+    color: dark ? "black" : "white",
+  };
+
+  const gridStyle = {
+    backgroundColor: dark ? "white" : "#191919",
+    color: dark ? "black" : "white",
+  };
+
+  const rightGridStyle = {
+    backgroundColor: dark ? "white" : "#191919",
+  };
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = !prevTheme;
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      return newTheme;
+    });
+  };
+
+  useEffect(() => {
+    document.body.className = dark ? "dark-theme" : "light-theme";
+  }, [dark]);
 
   return (
     <>
-      <header>
-        <img className="logo" src={Logo} alt="" />
-        <div className="author">
-          <h4>Follow the Author</h4>
-          <img onClick={github} src={Github} alt="" />
-          <img onClick={codepen} src={CodePen} alt="" />
-          <img onClick={linkedin} src={LinkedIn} alt="" />
+      <header style={headerStyle}>
+        <img className="logo" src={dark == true ? Logo : LogoLight} alt="" />
+        <div className="author" style={authorStyle}>
+          <h4 style={textOtherStyle}>Follow the Author</h4>
+          <img
+            onClick={github}
+            src={dark == true ? Github : GithubLight}
+            alt=""
+          />
+          <img
+            onClick={codepen}
+            src={dark == true ? CodePen : CodePenLight}
+            alt=""
+          />
+          <img
+            onClick={linkedin}
+            src={dark == true ? LinkedIn : LinkedInLight}
+            alt=""
+          />
         </div>
-        <div className="toggle">
-          <img src={Light} alt="" />
+        <div onClick={toggleTheme} className="toggle">
+          <img src={dark == true ? Moon : Light} alt="" />
         </div>
       </header>
 
@@ -82,7 +140,7 @@ function Quiz() {
           <h1 className="question-head">Question</h1>
           <div className="quiz">
             <div className="left">
-              <div className="question">
+              <div className="question" style={gridStyle}>
                 <p>
                   Question <span>{currentQuestion + 1}</span> of{" "}
                   {questions.length}
@@ -91,7 +149,7 @@ function Quiz() {
                   {questions[currentQuestion].text}
                 </h2>
               </div>
-              <div className="buttons">
+              <div className="buttons" style={gridStyle}>
                 <button
                   className="previous"
                   onClick={() => {
@@ -114,13 +172,14 @@ function Quiz() {
               </div>
             </div>
             <div className="right">
-              <div className="option-area">
-                <h1>Options</h1>
+              <div className="option-area" style={rightGridStyle}>
+                <h1 style={textOtherStyle}>Options</h1>
                 {questions[currentQuestion].options.map((option) => (
                   <div
                     key={option.id}
                     className="options"
                     onClick={() => handleOptionClick(option.text)}
+                    style={textStyle}
                   >
                     {option.text}
                   </div>
