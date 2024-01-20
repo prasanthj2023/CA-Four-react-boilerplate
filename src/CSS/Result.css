@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.main-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-area h1{
+    margin: 20px;
+    color: white;
+}
+
+.result-area{
+    width: 800px;
+    height: 300px;
+    background-color: #F8FAE5;
+    border-radius: 10px;
+    border-left: 10px solid #B19470;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-area h2{
+    font-size: xx-large;
+    margin: 20px;
+}
+
+.result-area p{
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.result-area span{
+    font-weight: normal;
+    font-size: medium;
+}
+
+.buttons-area{
+    width: 800px;
+    height: 100%;
+    margin: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.restart{
+    width: 30%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #005443;
+    color: white;
+    font-weight: bolder;
+    font-size: large;
+    cursor: pointer;
+}
+
+.return{
+    width: 30%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #A42828;
+    color: white;
+    font-weight: bolder;
+    font-size: large;
+    cursor: pointer;
+}
+
+@media (max-width: 1007px){
+    .result-area{
+        width: 400px;
+        height: 150px;
+    }
+    .buttons-area{
+        width: 400px;
+        height: 150px;
+    }
+}
